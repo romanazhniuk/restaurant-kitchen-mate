@@ -1,5 +1,5 @@
 from django import forms
-from models import Dish, Cook
+from .models import Dish, Cook
 from django.contrib.auth.forms import UserCreationForm
 
 

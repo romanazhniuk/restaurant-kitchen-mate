@@ -1,5 +1,5 @@
 from django.contrib import admin
-from models import DishType, Cook, Dish, Ingredient
+from .models import DishType, Cook, Dish, Ingredient
 
 admin.site.register(DishType)
 admin.site.register(Cook)

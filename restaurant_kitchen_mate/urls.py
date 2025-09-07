@@ -23,6 +23,6 @@ urlpatterns = [
     path("dish/<int:pk>/", views.DishDetailView.as_view(), name="dish-detail"),
     path("cooks/", views.CookListView.as_view(), name="cook-list"),
     path('admin/', admin.site.urls),
-    path('', include('restaurant.urls')),
+    path('', include('kitchen.urls')),
 ]
 

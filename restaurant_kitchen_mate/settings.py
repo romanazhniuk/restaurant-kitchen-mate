@@ -51,6 +51,8 @@ INSTALLED_APPS = [
     'kitchen',
 ]
 
+AUTH_USER_MODEL = "kitchen.Cook"
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

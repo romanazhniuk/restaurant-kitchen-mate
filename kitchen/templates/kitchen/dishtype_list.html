@@ -1,0 +1,13 @@
+<h1>Dish types</h1>
+<p><a href="{% url 'kitchen:dish-type-create' %}">Create new</a></p>
+<ul>
+  {% for t in dish_types %}
+    <li>
+      {{ t.name }}
+      — <a href="{% url 'kitchen:dish-type-update' t.pk %}">Edit</a>
+      — <a href="{% url 'kitchen:dish-type-delete' t.pk %}">Delete</a>
+    </li>
+  {% empty %}
+    <li>No dish types yet.</li>
+  {% endfor %}
+</ul>

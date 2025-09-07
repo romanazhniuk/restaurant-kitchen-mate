@@ -1,0 +1,7 @@
+<h1>Delete dish type: {{ object }}</h1>
+<form method="post">
+  {% csrf_token %}
+  <p>Are you sure?</p>
+  <button type="submit">Yes, delete</button>
+  <a href="{% url 'kitchen:dish-type-list' %}">Cancel</a>
+</form>

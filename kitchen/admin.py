@@ -1,6 +1,5 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
-from .models import Cook, DishType, Dish, Ingredient
+from .models import DishType, Cook, Dish, Ingredient
 
 
 @admin.register(Cook)

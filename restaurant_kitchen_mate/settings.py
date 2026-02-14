@@ -121,7 +121,8 @@ USE_TZ = True
 STATIC_URL = "/static/"
 
 # IMPORTANT: STATIC_ROOT must always be set, otherwise collectstatic fails on Render
-STATIC_ROOT = BASE_DIR / "staticfiles"
+if not DEBUG:
+    STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 # WhiteNoise storage (safe to keep for both local and production)
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"

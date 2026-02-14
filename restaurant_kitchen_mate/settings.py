@@ -38,13 +38,13 @@ if RENDER_EXTERNAL_HOSTNAME:
 
 # Application definition
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'kitchen'
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "kitchen",
 ]
 
 AUTH_USER_MODEL = "kitchen.Cook"
@@ -81,15 +81,27 @@ TEMPLATES = [
 WSGI_APPLICATION = "restaurant_kitchen_mate.wsgi.application"
 
 # Database
-# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
+# Local -> SQLite
+# Render -> DATABASE_URL (PostgreSQL)
+DATABASE_URL = os.environ.get("DATABASE_URL")
 
-DATABASES = {
-    'default': dj_database_url.config(
-        default='postgresql://postgres:postgres@localhost:5432/restaurant_kitchen_mate',
-        conn_max_age=600
-    )
-}
-AUTH_USER_MODEL = "kitchen.Cook"
+if DATABASE_URL:
+    # Render / production
+    DATABASES = {
+        "default": dj_database_url.config(
+            default=DATABASE_URL,
+            conn_max_age=600,
+            ssl_require=True,
+        )
+    }
+else:
+    # Local development
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -105,17 +117,10 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
 STATIC_URL = "/static/"
-
-# IMPORTANT: STATIC_ROOT must always be set, otherwise collectstatic fails on Render
-if not DEBUG:
-    STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-
-# WhiteNoise storage (safe to keep for both local and production)
+STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-nn

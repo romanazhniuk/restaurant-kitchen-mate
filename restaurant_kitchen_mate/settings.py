@@ -38,13 +38,13 @@ if RENDER_EXTERNAL_HOSTNAME:
 
 # Application definition
 INSTALLED_APPS = [
-    "django.contrib.admin",
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.messages",
-    "django.contrib.staticfiles",
-    "kitchen",
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'kitchen'
 ]
 
 AUTH_USER_MODEL = "kitchen.Cook"
@@ -81,27 +81,15 @@ TEMPLATES = [
 WSGI_APPLICATION = "restaurant_kitchen_mate.wsgi.application"
 
 # Database
-# Local -> SQLite
-# Render -> DATABASE_URL (PostgreSQL)
-DATABASE_URL = os.environ.get("DATABASE_URL")
+# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-if DATABASE_URL:
-    # Render / production
-    DATABASES = {
-        "default": dj_database_url.config(
-            default=DATABASE_URL,
-            conn_max_age=600,
-            ssl_require=True,
-        )
-    }
-else:
-    # Local development
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": BASE_DIR / "db.sqlite3",
-        }
-    }
+DATABASES = {
+    'default': dj_database_url.config(
+        default='postgresql://postgres:postgres@localhost:5432/restaurant_kitchen_mate',
+        conn_max_age=600
+    )
+}
+AUTH_USER_MODEL = "kitchen.Cook"
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [

@@ -1,15 +1,21 @@
-asgiref==3.9.1
-Brotli==1.1.0
-click==8.2.1
-dj-database-url==3.0.1
-Django==5.2.4
-gunicorn==23.0.0
-h11==0.16.0
-packaging==25.0
-psycopg2-binary==2.9.10
-sqlparse==0.5.3
-uvicorn==0.35.0
-whitenoise==6.9.0
+# Production / Render — keep this small so deploys stay fast and reliable.
+# For notebooks, ML, and dev tooling: pip install -r requirements-dev.txt
 
-dotenv~=0.9.9
-python-dotenv~=1.1.1
+Django==5.2.4
+asgiref==3.9.1
+sqlparse==0.5.3
+tzdata==2025.2
+
+dj-database-url==3.0.1
+psycopg2-binary==2.9.10
+python-dotenv==1.1.0
+
+whitenoise==6.9.0
+Brotli==1.1.0
+
+gunicorn==23.0.0
+packaging==25.0
+uvicorn==0.35.0
+
+django-crispy-forms==2.4
+crispy-bootstrap4==2025.6

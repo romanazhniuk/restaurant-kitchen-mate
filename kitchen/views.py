@@ -1,6 +1,9 @@
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.views import generic
-from kitchen.models import Dish, Cook
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+
+from kitchen.models import Dish, Cook, DishType
 
 
 def index(request):
@@ -13,9 +16,35 @@ class DishListView(generic.ListView):
     template_name = "restaurant/dish_list.html"
 
 
+class DishTypeListView(ListView):
+    model = DishType
+    context_object_name = "dishtype_list"
+    template_name = "kitchen/dishtype_list.html"
+
+
 class DishDetailView(generic.DetailView):
     model = Dish
     template_name = "restaurant/dish_detail.html"
+
+
+class DishTypeCreateView(CreateView):
+    model = DishType
+    fields = ["name"]                         # adjust fields to your model
+    template_name = "kitchen/dishtype_form.html"
+    success_url = reverse_lazy("kitchen:dish-type-list")
+
+
+class DishTypeUpdateView(UpdateView):
+    model = DishType
+    fields = ["name"]
+    template_name = "kitchen/dishtype_form.html"
+    success_url = reverse_lazy("kitchen:dish-type-list")
+
+
+class DishTypeDeleteView(DeleteView):
+    model = DishType
+    template_name = "kitchen/dishtype_confirm_delete.html"
+    success_url = reverse_lazy("kitchen:dish-type-list")
 
 
 class DishCreateView(generic.CreateView):

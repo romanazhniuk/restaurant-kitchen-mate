@@ -35,6 +35,13 @@ ALLOWED_HOSTS: list[str] = ["localhost", "127.0.0.1"]
 RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+    CSRF_TRUSTED_ORIGINS = [f"https://{RENDER_EXTERNAL_HOSTNAME}"]
+else:
+    CSRF_TRUSTED_ORIGINS: list[str] = []
+
+if not DEBUG:
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+    SECURE_SSL_REDIRECT = True
 
 # Application definition
 INSTALLED_APPS = [
@@ -44,8 +51,12 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "crispy_forms",
+    "crispy_bootstrap4",
     "kitchen",
 ]
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 AUTH_USER_MODEL = "kitchen.Cook"
 
@@ -86,16 +97,14 @@ WSGI_APPLICATION = "restaurant_kitchen_mate.wsgi.application"
 DATABASE_URL = os.environ.get("DATABASE_URL")
 
 if DATABASE_URL:
-    # Render / production
+    # Render / production — dj_database_url reads DATABASE_URL from the environment
     DATABASES = {
         "default": dj_database_url.config(
-            default=DATABASE_URL,
             conn_max_age=600,
             ssl_require=True,
         )
     }
 else:
-    # Local development
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
@@ -118,8 +127,12 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = "/static/"
-STATIC_ROOT = BASE_DIR / "staticfiles"
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+# Always set STATIC_ROOT (string path) so collectstatic works on Render even when DEBUG is True.
+STATIC_ROOT = str(BASE_DIR / "staticfiles")
+
+# Production only: hashed, compressed assets (must match how collectstatic runs on deploy)
+if not DEBUG:
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 
 # Default primary key field type

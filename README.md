@@ -3,6 +3,8 @@
 
 A Django-powered kitchen management system designed for restaurant owners and kitchen staff to collaborate efficiently. Cooks can create dishes and dish types, assign preparation responsibilities, and manage kitchen workflows.
 
+Deployed here on Render: https://restaurant-kitchen-mate-ve6t.onrender.com
+
 ---
 
 ## ✨ Features

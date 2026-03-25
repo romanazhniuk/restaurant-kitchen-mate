@@ -26,8 +26,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("SECRET_KEY", "dev-secret-key")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# On Render there is RENDER env var, so DEBUG becomes False
-DEBUG = "RENDER" not in os.environ
+# Use an explicit DEBUG env var instead of relying on Render internals.
+# - Local dev: set DEBUG=1
+# - Render (default): DEBUG unset => False
+DEBUG = os.environ.get("DEBUG", "").lower() in {"1", "true", "yes", "y"}
 
 # Allowed hosts
 ALLOWED_HOSTS: list[str] = ["localhost", "127.0.0.1"]

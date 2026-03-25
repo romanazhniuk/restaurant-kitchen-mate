@@ -17,15 +17,15 @@
   <!-- 🔸 Навігація -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
     <div class="container-fluid">
-      <a class="navbar-brand" href="{% url 'restaurant:index' %}">🍴 KitchenMate</a>
+      <a class="navbar-brand" href="{% url 'kitchen:index' %}">🍴 KitchenMate</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navBar">
         <span class="navbar-toggler-icon"></span>
       </button>
 
       <div class="collapse navbar-collapse" id="navBar">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item"><a class="nav-link" href="{% url 'restaurant:dish-list' %}">Dishes</a></li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'restaurant:cook-list' %}">Cooks</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'kitchen:dish-list' %}">Dishes</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'kitchen:cook-list' %}">Cooks</a></li>
         </ul>
       </div>
     </div>

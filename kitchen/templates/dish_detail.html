@@ -14,7 +14,7 @@
     {% endfor %}
   </ul>
 
-  <a href="{% url 'restaurant:dish-update' dish.pk %}" class="btn btn-warning">Edit</a>
-  <a href="{% url 'restaurant:dish-delete' dish.pk %}" class="btn btn-danger">Delete</a>
+  <a href="{% url 'kitchen:dish-update' dish.pk %}" class="btn btn-warning">Edit</a>
+  <a href="{% url 'kitchen:dish-delete' dish.pk %}" class="btn btn-danger">Delete</a>
 {% endblock %}
 >

@@ -5,7 +5,7 @@
   <ul>
     {% for cook in cook_list %}
       <li>
-        <a href="{% url 'restaurant:cook-detail' cook.pk %}">{{ cook.username }}</a>
+        <a href="{% url 'kitchen:cook-detail' cook.pk %}">{{ cook.username }}</a>
         — {{ cook.years_of_experience }} yrs experience
       </li>
     {% empty %}

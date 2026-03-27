@@ -131,6 +131,8 @@ USE_TZ = True
 STATIC_URL = "/static/"
 # Always set STATIC_ROOT (string path) so collectstatic works on Render even when DEBUG is True.
 STATIC_ROOT = str(BASE_DIR / "staticfiles")
+# Include project-level static assets (css/js/img under ./static)
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
 # Production only: hashed, compressed assets (must match how collectstatic runs on deploy)
 if not DEBUG:

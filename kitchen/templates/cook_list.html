@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
-  <h2>Cooks</h2>
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0">Cooks</h2>
+    <a href="{% url 'kitchen:cook-create' %}" class="btn btn-primary">Add cook</a>
+  </div>
 
   <ul>
     {% for cook in cook_list %}
@@ -9,7 +12,7 @@
         — {{ cook.years_of_experience }} yrs experience
       </li>
     {% empty %}
-      <li>No cooks found.</li>
+      <li>No cooks found. Create your first cook.</li>
     {% endfor %}
   </ul>
 {% endblock %}

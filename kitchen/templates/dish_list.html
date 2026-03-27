@@ -1,5 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>Welcome to the Kitchen Management System</h1>
-  <p>Use the navigation bar to explore dishes and cooks.</p>
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0">Dishes</h2>
+    <a href="{% url 'kitchen:dish-create' %}" class="btn btn-primary">Add dish</a>
+  </div>
+
+  <ul class="list-group">
+    {% for dish in dish_list %}
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <a href="{% url 'kitchen:dish-detail' dish.pk %}">{{ dish.name }}</a>
+        <span class="text-muted">${{ dish.price }}</span>
+      </li>
+    {% empty %}
+      <li class="list-group-item">No dishes found. Create your first dish.</li>
+    {% endfor %}
+  </ul>
 {% endblock %}

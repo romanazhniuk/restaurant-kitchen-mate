@@ -1,13 +1,36 @@
+from django.contrib.auth import login
+from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
+from kitchen.forms import CookCreationForm
 from kitchen.models import Dish, Cook, DishType
 
 
 def index(request):
     return render(request, "restaurant/index.html")
+
+
+class CookRegisterView(CreateView):
+    form_class = CookCreationForm
+    template_name = "registration/register.html"
+    success_url = reverse_lazy("kitchen:index")
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        login(self.request, self.object)
+        return response
+
+
+class KitchenLoginView(LoginView):
+    template_name = "registration/login.html"
+    redirect_authenticated_user = True
+
+
+class KitchenLogoutView(LogoutView):
+    next_page = reverse_lazy("kitchen:index")
 
 
 class DishListView(generic.ListView):

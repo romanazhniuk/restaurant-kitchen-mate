@@ -5,6 +5,9 @@ app_name = "kitchen"
 
 urlpatterns = [
     path("", views.index, name="index"),
+    path("accounts/register/", views.CookRegisterView.as_view(), name="register"),
+    path("accounts/login/", views.KitchenLoginView.as_view(), name="login"),
+    path("accounts/logout/", views.KitchenLogoutView.as_view(), name="logout"),
     path("cooks/", views.CookListView.as_view(), name="cook-list"),
     path("cooks/<int:pk>/", views.CookDetailView.as_view(), name="cook-detail"),
     path("cooks/create/", views.CookCreateView.as_view(), name="cook-create"),
